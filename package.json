@@ -1,0 +1,22 @@
+{
+  "name": "tinyapp",
+  "version": "1.0.0",
+  "description": "TBD",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmelnikel/tinyApp.git"
+  },
+  "author": "Jason Melnikel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmelnikel/tinyApp/issues"
+  },
+  "homepage": "https://github.com/jmelnikel/tinyApp#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
