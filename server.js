@@ -26,7 +26,7 @@ server.post("/urls", (req, res) => {
   const longURL = req.body.longURL
   const shortURL = generateRandomString()
   urlDatabase[shortURL] = longURL;
-  res.send("ok")
+  res.redirect(`/urls/${shortURL}`);
 });
 
 
