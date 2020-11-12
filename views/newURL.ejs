@@ -15,27 +15,17 @@
 <body>
   <%- include('partials/_header'); %>
   <main style="margin: 1em;">
-    <h3>My URLs</h3>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Short URL</th>
-          <th scope="col">Long URL</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(let url in urls) { %>
-        <tr>
-          <td><%= url %></td>
-          <td><%= urls[url] %></td>
-        </tr>
-        <% } %>
-      </tbody>
-    </table>
-    <section>
-      <a href="urls/new" class="btn btn-primary">New URL</a>
-    </section>
+    <h3>Create TinyURL</h3>
+    <form class="form-inline" action="/urls" method="POST">
+      <div class="form-group mb-2">
+        <label for="longURL">Enter a URL:</label>
+        <input class="form-control" type="text" name="longURL" placeholder="http://" style="width: 300px; margin: 1em">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
   </main>
+
+
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
