@@ -1,17 +1,24 @@
 const express = require("express");
 const server = express();
+const cookieParser = require("cookie-parser")
 const PORT = 3000;
 const urlDatabase = require("./data");
 const { generateRandomString } = require("./helpers");
 
-
 server.set("view engine", "ejs");
 
-// Body Parser Middleware
+// Middleware
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
+// server.use(cookieParser)
 
 
+server.post("/login", (req, res) => {
+  const username = req.body.username;
+  console.log("This is username:---->", username)
+  res.cookie("username", username)
+  res.redirect("/urls");
+})
 
 server.get("/urls", (req, res) => {
   const templateVars = { urls: urlDatabase }
