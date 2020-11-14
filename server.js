@@ -26,11 +26,14 @@ server.post("/urls", (req, res) => {
   const longURL = req.body.longURL
   const shortURL = generateRandomString()
   urlDatabase[shortURL] = longURL;
-  res.redirect(`/urls/${shortURL}`);
+  res.redirect("/urls");
 });
 
-
-
+server.post("/urls/:shortURL/delete", (req, res) => {
+  const shortURL = req.params.shortURL
+  delete urlDatabase[shortURL];
+  res.redirect("/urls");
+})
 
 server.get("/urls/:shortURL", (req, res) => {
   const shortURL = req.params.shortURL
@@ -38,7 +41,12 @@ server.get("/urls/:shortURL", (req, res) => {
   res.render("showURL", templateVars);
 });
 
-
+server.post("/urls/:shortURL", (req, res) => {
+  const longURL = req.body.longURL
+  const shortURL = req.params.shortURL
+  urlDatabase[shortURL] = longURL;
+  res.redirect("/urls");
+});
 
 
 // server.get("/", (req, res) => {
