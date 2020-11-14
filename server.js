@@ -1,6 +1,6 @@
 const express = require("express");
 const server = express();
-const cookieParser = require("cookie-parser")
+const cookieParser = require('cookie-parser');
 const PORT = 3000;
 const urlDatabase = require("./data");
 const { generateRandomString } = require("./helpers");
@@ -10,23 +10,29 @@ server.set("view engine", "ejs");
 // Middleware
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
-// server.use(cookieParser)
+server.use(cookieParser());
 
 
 server.post("/login", (req, res) => {
   const username = req.body.username;
-  console.log("This is username:---->", username)
   res.cookie("username", username)
   res.redirect("/urls");
 })
 
+server.post("/logout", (req, res) => {
+  res.clearCookie("username");
+  res.redirect("/urls");
+})
+
 server.get("/urls", (req, res) => {
-  const templateVars = { urls: urlDatabase }
+  const templateVars = { urls: urlDatabase, username: req.cookies["username"] }
   res.render("index", templateVars);
 });
 
 server.get("/urls/new", (req, res) => {
-  res.render("newURL");
+  const templateVars = { username: req.cookies["username"] };
+
+  res.render("newURL", templateVars);
 });
 
 server.post("/urls", (req, res) => {
@@ -44,7 +50,7 @@ server.post("/urls/:shortURL/delete", (req, res) => {
 
 server.get("/urls/:shortURL", (req, res) => {
   const shortURL = req.params.shortURL
-  const templateVars = { shortURL, longURL: urlDatabase[shortURL] };
+  const templateVars = { shortURL, longURL: urlDatabase[shortURL], username: req.cookies["username"] };
   res.render("showURL", templateVars);
 });
 
