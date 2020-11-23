@@ -9,12 +9,8 @@ const generateRandomString = () => {
   return shortURL;
 };
 
-const findUser = (email) => {
-  console.log("userDatabase in helper", userDatabase)
+const findUsername = (email) => {
   for (let user in userDatabase) {
-    console.log(user)
-    console.log(userDatabase[user].email)
-    console.log(email)
     if (userDatabase[user].email === email) {
       return user
     }
@@ -22,4 +18,8 @@ const findUser = (email) => {
   return undefined
 }
 
-module.exports = { generateRandomString, findUser }
+// const findEmail = (username) => {
+//   return userDatabase[username].email
+// }
+
+module.exports = { generateRandomString, findUsername }
