@@ -1,3 +1,5 @@
+const { userDatabase } = require("./data");
+
 const generateRandomString = () => {
   let shortURL = "";
   let array = "0123456789abcdefghijklmnopqrstuvwxyz";
@@ -7,4 +9,17 @@ const generateRandomString = () => {
   return shortURL;
 };
 
-module.exports = { generateRandomString }
+const findUser = (email) => {
+  console.log("userDatabase in helper", userDatabase)
+  for (let user in userDatabase) {
+    console.log(user)
+    console.log(userDatabase[user].email)
+    console.log(email)
+    if (userDatabase[user].email === email) {
+      return user
+    }
+  }
+  return undefined
+}
+
+module.exports = { generateRandomString, findUser }
