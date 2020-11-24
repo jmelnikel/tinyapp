@@ -1,6 +1,7 @@
 const express = require("express");
 const server = express();
 const cookieParser = require('cookie-parser');
+const bcrypt = require("bcryptjs");
 const PORT = 3000;
 const { userDatabase } = require("./data");
 const { generateRandomString, findUsername, findLongURL, confirmUser } = require("./helpers");
@@ -25,7 +26,8 @@ server.post("/urls/register", (req, res) => {
     res.render("urls/register", templateVars);
   } else {
     const username = generateRandomString()
-    userDatabase[username] = { email, password, urls: {} }
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    userDatabase[username] = { email, hashedPassword, urls: {} }
     res.redirect("/urls")
   }
 })
@@ -35,11 +37,10 @@ server.get("/urls/login", (req, res) => {
   res.render("login", templateVars);
 })
 
-
 server.post("/urls/login", (req, res) => {
   const { email, password } = req.body
   const username = findUsername(email)
-  if (username && userDatabase[username].password === password) {
+  if (username && bcrypt.compareSync(password, userDatabase[username].hashedPassword)) {
     res.cookie("userID", username)
     res.redirect("/urls");
   } else {
