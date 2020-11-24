@@ -18,7 +18,21 @@ const findUsername = (email) => {
   return undefined
 }
 
+const findLongURL = (shortURL) => {
+  for (let user in userDatabase) {
+    if (userDatabase[user].urls[shortURL]) {
+      return userDatabase[user].urls[shortURL]
+    } else {
+      return undefined
+    }
+  }
+}
 
+const confirmUser = (username, shortURL) => {
+  if (userDatabase[username].urls[shortURL]) {
+    return true
+  }
+  return false
+}
 
-
-module.exports = { generateRandomString, findUsername }
+module.exports = { generateRandomString, findUsername, findLongURL, confirmUser }
