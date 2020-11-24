@@ -1,6 +1,6 @@
 const express = require("express");
 const server = express();
-const cookieParser = require('cookie-parser');
+const cookieSession = require("cookie-session")
 const bcrypt = require("bcryptjs");
 const PORT = 3000;
 const { userDatabase } = require("./data");
@@ -11,7 +11,10 @@ server.set("view engine", "ejs");
 // Middleware
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
-server.use(cookieParser());
+server.use(cookieSession({
+  name: 'session',
+  keys: ["userID"],
+}))
 
 
 server.get("/urls/register", (req, res) => {
@@ -41,7 +44,7 @@ server.post("/urls/login", (req, res) => {
   const { email, password } = req.body
   const username = findUsername(email)
   if (username && bcrypt.compareSync(password, userDatabase[username].hashedPassword)) {
-    res.cookie("userID", username)
+    req.session.user_id = username;
     res.redirect("/urls");
   } else {
     const templateVars = { error: true, username: null }
@@ -50,12 +53,12 @@ server.post("/urls/login", (req, res) => {
 })
 
 server.post("/urls/logout", (req, res) => {
-  res.clearCookie("userID");
+  req.session = null
   res.redirect("/urls");
 })
 
 server.get("/urls", (req, res) => {
-  const username = req.cookies["userID"];
+  const username = req.session.user_id;
   if (username) {
     const { urls, email } = userDatabase[username]
     const templateVars = { urls, email, username }
@@ -67,7 +70,7 @@ server.get("/urls", (req, res) => {
 });
 
 server.get("/urls/new", (req, res) => {
-  const username = req.cookies["userID"];
+  const username = req.session.user_id;
   if (username) {
     const templateVars = { email: userDatabase[username].email, username }
     res.render("newURL", templateVars);
@@ -78,7 +81,7 @@ server.get("/urls/new", (req, res) => {
 });
 
 server.post("/urls", (req, res) => {
-  const username = req.cookies["userID"];
+  const username = req.session.user_id;
   const longURL = req.body.longURL
   const shortURL = generateRandomString()
   userDatabase[username].urls[shortURL] = longURL;
@@ -92,7 +95,7 @@ server.get("/u/:shortURL", (req, res) => {
 })
 
 server.post("/urls/:shortURL/delete", (req, res) => {
-  const username = req.cookies["userID"];
+  const username = req.session.user_id;
   const shortURL = req.params.shortURL
   if (confirmUser(username, shortURL)) {
     delete userDatabase[username].urls[shortURL];
@@ -105,7 +108,7 @@ server.post("/urls/:shortURL/delete", (req, res) => {
 })
 
 server.get("/urls/:shortURL", (req, res) => {
-  const username = req.cookies["userID"];
+  const username = req.session.user_id;
   const shortURL = req.params.shortURL
   if (confirmUser(username, shortURL)) {
     const longURL = userDatabase[username].urls[shortURL]
@@ -119,7 +122,7 @@ server.get("/urls/:shortURL", (req, res) => {
 });
 
 server.post("/urls/:shortURL", (req, res) => {
-  const username = req.cookies["userID"];
+  const username = req.session.user_id;
   const longURL = req.body.longURL
   const shortURL = req.params.shortURL
   userDatabase[username].urls[shortURL] = longURL;
