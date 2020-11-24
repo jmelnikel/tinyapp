@@ -18,8 +18,7 @@ const findUsername = (email) => {
   return undefined
 }
 
-// const findEmail = (username) => {
-//   return userDatabase[username].email
-// }
+
+
 
 module.exports = { generateRandomString, findUsername }

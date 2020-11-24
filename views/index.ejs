@@ -14,6 +14,7 @@
 
 <body>
   <%- include('partials/_header'); %>
+
   <main style="margin: 1em;">
     <h3>My URLs</h3>
     <table class="table">
@@ -25,14 +26,14 @@
         </tr>
       </thead>
       <tbody>
-        <% for(let url in urls) { %>
+        <% for (let url in urls) { %>
         <tr>
           <td><%= url %></td>
           <td>
-            <a href="urls/<%= url %>"><%= urls[url] %></a>
+            <a href="/<%= url %>"><%= urls[url] %></a>
           </td>
           <td>
-            <form action="urls/<%= url %>/delete" method="POST">
+            <form action="/<%= url %>/delete" method="POST">
               <button class="btn btn-primary" type="submit">Delete</button>
             </form>
           </td>
@@ -41,10 +42,11 @@
       </tbody>
     </table>
     <section>
-      <a href="urls/new" class="btn btn-primary">New URL</a>
+      <% if (username) { %>
+      <a href="/new" class="btn btn-primary">New URL</a>
+      <% } %>
     </section>
   </main>
-
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>

@@ -14,38 +14,50 @@ server.use(cookieParser());
 
 
 server.get("/register", (req, res) => {
-  const templateVars = { urls: null, username: null }
+  const templateVars = { error: false, username: null }
   res.render("register", templateVars);
 })
 
 server.post("/register", (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
-  const username = generateRandomString()
-  userDatabase[username] = { email, password, urls: {} }
-  res.redirect("/urls")
+  const { email, password } = req.body;
+  if (findUsername(email)) {
+    const templateVars = { error: true, username: null }
+    res.render("register", templateVars);
+  } else {
+    const username = generateRandomString()
+    userDatabase[username] = { email, password, urls: {} }
+    res.redirect("/")
+  }
 })
 
+server.get("/login", (req, res) => {
+  const templateVars = { error: false, username: null }
+  res.render("login", templateVars);
+})
+
+
 server.post("/login", (req, res) => {
-  const username = findUsername(req.body.email);
-  if (username) {
-    res.cookie("username", username)
-    res.redirect("/urls");
+  const { email, password } = req.body
+  const username = findUsername(email)
+  if (username && userDatabase[username].password === password) {
+    res.cookie("userID", username)
+    res.redirect("/");
   } else {
-    console.log("User not found")
-    res.redirect("/urls");
+    const templateVars = { error: true, username: null }
+    res.render("login", templateVars);
   }
 })
 
 server.post("/logout", (req, res) => {
-  res.clearCookie("username");
-  res.redirect("/urls");
+  res.clearCookie("userID");
+  res.redirect("/");
 })
 
-server.get("/urls", (req, res) => {
-  const username = req.cookies["username"];
+server.get("/", (req, res) => {
+  const username = req.cookies["userID"];
   if (username) {
-    const templateVars = { urls: userDatabase[username].urls, email: userDatabase[username].email, username }
+    const { urls, email } = userDatabase[username]
+    const templateVars = { urls, email, username }
     res.render("index", templateVars);
   } else {
     const templateVars = { urls: null, email: null, username: null }
@@ -53,8 +65,8 @@ server.get("/urls", (req, res) => {
   }
 });
 
-server.get("/urls/new", (req, res) => {
-  const username = req.cookies["username"];
+server.get("/new", (req, res) => {
+  const username = req.cookies["userID"];
   if (username) {
     const templateVars = { email: userDatabase[username].email, username }
     res.render("newURL", templateVars);
@@ -65,33 +77,33 @@ server.get("/urls/new", (req, res) => {
 });
 
 server.post("/urls", (req, res) => {
-  const username = req.cookies["username"];
+  const username = req.cookies["userID"];
   const longURL = req.body.longURL
   const shortURL = generateRandomString()
   userDatabase[username].urls[shortURL] = longURL;
-  res.redirect("/urls");
+  res.redirect("/");
 });
 
-server.post("/urls/:shortURL/delete", (req, res) => {
-  const username = req.cookies["username"];
+server.post("/:shortURL/delete", (req, res) => {
+  const username = req.cookies["userID"];
   const shortURL = req.params.shortURL
   delete userDatabase[username].urls[shortURL];
-  res.redirect("/urls");
+  res.redirect("/");
 })
 
-server.get("/urls/:shortURL", (req, res) => {
-  const username = req.cookies["username"];
+server.get("/:shortURL", (req, res) => {
+  const username = req.cookies["userID"];
   const shortURL = req.params.shortURL
   const templateVars = { shortURL, longURL: userDatabase[username].urls[shortURL], username, email: userDatabase[username].email };
   res.render("showURL", templateVars);
 });
 
-server.post("/urls/:shortURL", (req, res) => {
-  const username = req.cookies["username"];
+server.post("/:shortURL", (req, res) => {
+  const username = req.cookies["userID"];
   const longURL = req.body.longURL
   const shortURL = req.params.shortURL
   userDatabase[username].urls[shortURL] = longURL;
-  res.redirect("/urls");
+  res.redirect("/");
 });
 
 
