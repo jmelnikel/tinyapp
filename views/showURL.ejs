@@ -23,7 +23,7 @@
 
     <% if (username) { %>
     <div class="card-footer text-muted">
-      <form class="form-inline" action="/urls/<%= shortURL %>" method="POST">
+      <form class="form-inline" action="/urls/<%= shortURL %>?_method=PUT" method="POST">
         <div class="form-group mb-2">
           <label for="longURL">Edit URL:</label>
           <input id="longURL" class="form-control" type="text" name="longURL" placeholder="http://"

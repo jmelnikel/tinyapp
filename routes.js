@@ -82,11 +82,13 @@ router.post("/", (req, res) => {
   res.redirect("/urls");
 });
 
-router.post("/:shortURL/delete", (req, res) => {
+router.delete("/:shortURL", (req, res) => {
   const username = req.session.user_id;
   const shortURL = req.params.shortURL;
+  console.log("this is the DB pre:---->", userDatabase);
   if (confirmUser(username, shortURL, userDatabase)) {
     delete userDatabase[username].urls[shortURL];
+    console.log("this is the DBpost:---->", userDatabase);
     res.redirect("/urls");
   } else {
     const templateVars = { error: true, username: null };
@@ -109,7 +111,7 @@ router.get("/:shortURL", (req, res) => {
   }
 });
 
-router.post("/:shortURL", (req, res) => {
+router.put("/:shortURL", (req, res) => {
   const username = req.session.user_id;
   const longURL = req.body.longURL;
   const shortURL = req.params.shortURL;

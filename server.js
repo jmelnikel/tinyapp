@@ -5,6 +5,7 @@ const cookieSession = require("cookie-session");
 const router = require("./routes");
 const { userDatabase } = require("./data");
 const { findLongURL } = require("./helpers");
+const methodOverride = require('method-override');
 
 server.set("view engine", "ejs");
 
@@ -16,6 +17,7 @@ server.use(cookieSession({
   name: 'session',
   keys: ["user_id"],
 }));
+server.use(methodOverride('_method'));
 server.use("/urls", router);
 
 
