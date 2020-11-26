@@ -1,3 +1,5 @@
+/* eslint quote-props: off */
+
 const userDatabase = {
   "4g6ews": {
     email: "email@email.com",

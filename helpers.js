@@ -1,6 +1,6 @@
 const generateRandomString = () => {
   let shortURL = "";
-  let array = "0123456789abcdefghijklmnopqrstuvwxyz";
+  const array = "0123456789abcdefghijklmnopqrstuvwxyz";
   for (let i = 1; i <= 6; i++) {
     shortURL += array[Math.floor(Math.random() * array.length)];
   }
@@ -8,32 +8,32 @@ const generateRandomString = () => {
 };
 
 const findUsername = (email, database) => {
-  for (let user in database) {
+  for (const user in database) {
     if (database[user].email === email) {
-      return user
+      return user;
     }
   }
-  return undefined
-}
+  return undefined;
+};
 
 const findLongURL = (shortURL, database) => {
-  for (let user in database) {
+  for (const user in database) {
     if (database[user].urls[shortURL]) {
-      return database[user].urls[shortURL]
+      return database[user].urls[shortURL];
     } else {
-      return undefined
+      return undefined;
     }
   }
-}
+};
 
 const confirmUser = (username, shortURL, database) => {
   if (!database[username]) {
-    return false
+    return false;
   }
   if (database[username].urls[shortURL]) {
-    return true
+    return true;
   }
-  return false
-}
+  return false;
+};
 
-module.exports = { generateRandomString, findUsername, findLongURL, confirmUser }
+module.exports = { generateRandomString, findUsername, findLongURL, confirmUser };
