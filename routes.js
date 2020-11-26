@@ -7,7 +7,8 @@ const { userDatabase } = require("./data");
 const {
   generateRandomString,
   findUsername,
-  confirmUser
+  confirmUser,
+  findLongURL
 } = require("./helpers");
 
 
@@ -80,6 +81,12 @@ router.post("/", (req, res) => {
   const shortURL = generateRandomString();
   userDatabase[username].urls[shortURL] = longURL;
   res.redirect("/urls");
+});
+
+router.get("/public/:shortURL", (req, res) => {
+  const shortURL = req.params.shortURL;
+  const longURL = findLongURL(shortURL, userDatabase);
+  res.render("showURL", { shortURL, longURL, email: null, username: null });
 });
 
 router.delete("/:shortURL", (req, res) => {
