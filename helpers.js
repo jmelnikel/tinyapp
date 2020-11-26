@@ -1,5 +1,3 @@
-const { userDatabase } = require("./data");
-
 const generateRandomString = () => {
   let shortURL = "";
   let array = "0123456789abcdefghijklmnopqrstuvwxyz";
@@ -9,27 +7,30 @@ const generateRandomString = () => {
   return shortURL;
 };
 
-const findUsername = (email) => {
-  for (let user in userDatabase) {
-    if (userDatabase[user].email === email) {
+const findUsername = (email, database) => {
+  for (let user in database) {
+    if (database[user].email === email) {
       return user
     }
   }
   return undefined
 }
 
-const findLongURL = (shortURL) => {
-  for (let user in userDatabase) {
-    if (userDatabase[user].urls[shortURL]) {
-      return userDatabase[user].urls[shortURL]
+const findLongURL = (shortURL, database) => {
+  for (let user in database) {
+    if (database[user].urls[shortURL]) {
+      return database[user].urls[shortURL]
     } else {
       return undefined
     }
   }
 }
 
-const confirmUser = (username, shortURL) => {
-  if (userDatabase[username].urls[shortURL]) {
+const confirmUser = (username, shortURL, database) => {
+  if (!database[username]) {
+    return false
+  }
+  if (database[username].urls[shortURL]) {
     return true
   }
   return false
