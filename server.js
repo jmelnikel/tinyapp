@@ -93,7 +93,7 @@ server.post("/urls", (req, res) => {
   res.redirect("/urls");
 });
 
-server.get("/u/:shortURL", (req, res) => {
+server.get("/public/:shortURL", (req, res) => {
   const shortURL = req.params.shortURL
   const longURL = findLongURL(shortURL, userDatabase)
   res.render("showURL", { shortURL, longURL, email: null, username: null });
@@ -133,6 +133,10 @@ server.post("/urls/:shortURL", (req, res) => {
   userDatabase[username].urls[shortURL] = longURL;
   res.redirect("/urls");
 });
+
+server.get("*", (req, res) => {
+  res.redirect("/urls/login");
+})
 
 
 server.listen(PORT, () => {
