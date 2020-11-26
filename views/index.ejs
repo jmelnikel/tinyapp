@@ -8,14 +8,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="">
+  <link rel="stylesheet" type="text/css" href="/styles.css">
   <title>Tiny App</title>
 </head>
 
 <body>
   <%- include('partials/_header'); %>
 
-  <main style="margin: 1em;">
+  <main class="main">
     <h3>My URLs</h3>
     <table class="table">
       <thead>
@@ -34,7 +34,7 @@
           </td>
           <td>
             <form action="/urls/<%= url %>?_method=DELETE" method="POST">
-              <button class="btn btn-primary" type="submit">Delete</button>
+              <button class="btn button-dark" type="submit">Delete</button>
             </form>
           </td>
         </tr>
@@ -43,7 +43,7 @@
     </table>
     <section>
       <% if (username) { %>
-      <a href="urls/new" class="btn btn-primary">New URL</a>
+      <a href="urls/new" class="btn button-dark">New URL</a>
       <% } %>
     </section>
   </main>

@@ -16,9 +16,11 @@ server.use(express.urlencoded({ extended: true }));
 server.use(cookieSession({
   name: 'session',
   keys: ["user_id"],
+  maxAge: 1000 * 60
 }));
 server.use(methodOverride('_method'));
 server.use("/urls", router);
+server.use(express.static("styles"));
 
 
 // Generic Routes
