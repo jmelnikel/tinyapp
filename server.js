@@ -19,7 +19,7 @@ server.use(cookieSession({
 }));
 server.use(methodOverride('_method'));
 server.use("/urls", router);
-server.use(express.static("styles"));
+server.use(express.static("views"));
 
 
 server.get("*", (req, res) => {

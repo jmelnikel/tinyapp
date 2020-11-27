@@ -92,10 +92,8 @@ router.get("/public/:shortURL", (req, res) => {
 router.delete("/:shortURL", (req, res) => {
   const username = req.session.user_id;
   const shortURL = req.params.shortURL;
-  console.log("this is the DB pre:---->", userDatabase);
   if (confirmUser(username, shortURL, userDatabase)) {
     delete userDatabase[username].urls[shortURL];
-    console.log("this is the DBpost:---->", userDatabase);
     res.redirect("/urls");
   } else {
     const templateVars = { error: true, username: null };

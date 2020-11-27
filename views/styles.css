@@ -1,0 +1,42 @@
+.main {
+  margin: 1em;
+}
+
+.input {
+  width: 300px;
+  margin: 1em;
+}
+
+.nav-bg {
+  background-color: blue;
+}
+
+.button-light {
+  background-color: white;
+}
+.button-light:hover {
+  background-color: rgb(200, 200, 255);
+}
+
+.button-dark {
+  background-color: blue;
+  color: white
+}
+.button-dark:hover {
+  background-color:rgb(100, 100, 255);
+  color: white
+}
+
+.logged-in {
+  font-size: 1.2rem;
+  color: white;
+}
+
+.links {
+  color: white;
+}
+
+.error {
+  font-size: 1.5rem;
+  color: red;
+}
