@@ -30,5 +30,5 @@ This app is a full stack web application using:
 
 ---
 ## Screen Shots
-!["Screenshot of Login page"](https://github.com/lighthouse-labs/tinyapp/blob/master/docs/urls-page.png)
-!["Screenshot of URLs page"](https://github.com/lighthouse-labs/tinyapp/blob/master/docs/register-page.png)
+!["Screenshot of Login page"](https://github.com/jmelnikel/tinyApp/blob/master/docs/login-page.png?raw=true)
+!["Screenshot of URLs page"](https://github.com/jmelnikel/tinyApp/blob/master/docs/URLs%20page.png?raw=true)
