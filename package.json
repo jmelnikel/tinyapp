@@ -1,8 +1,8 @@
 {
   "name": "tinyapp",
   "version": "1.0.0",
-  "description": "TBD",
-  "main": "index.js",
+  "description": "TinyApp is a URL shortening service similar to TinyURL, Bitly, or Goo.gl.",
+  "main": "server.js",
   "scripts": {
     "test": "mocha",
     "server": "nodemon server.js"
