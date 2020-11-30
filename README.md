@@ -3,8 +3,10 @@ TinyApp is a URL shortening service similar to TinyURL, Bitly, or Goo.gl.
 This app is a full stack web application using:
 - Web Server: Node.js
 - Middleware: Express
-- Template Engine: EJS
+- Template Engine: EJS  
 
+Please note this app is a project assignment from Lighthouse Labs for The Web Developer Bootcamp and only base HTML templates with bootstrap styling code were given. Creation of the server with routing, helper functions, autorization, and HTML/CSS customization were performed by this developer.
+ 
 ---
 ## App Highlights
 - Users can Register, Login, and Logout.
