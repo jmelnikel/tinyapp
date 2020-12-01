@@ -5,7 +5,7 @@ This app is a full stack web application using:
 - Middleware: Express
 - Template Engine: EJS  
 
-Please note this app is a project assignment from Lighthouse Labs for The Web Developer Bootcamp and only base HTML templates with bootstrap styling code were given. Creation of the server with routing, helper functions, autorization, and HTML/CSS customization were performed by this developer.
+Please note this app is a project assignment from Lighthouse Labs for The Web Developer Bootcamp. Only basic HTML templates with bootstrap styling code were given. Creation of the server with routing, helper functions, authorization, and custom CSS, and HTML with EJS were coded by this developer.
  
 ---
 ## App Highlights
