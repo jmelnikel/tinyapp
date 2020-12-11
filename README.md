@@ -17,8 +17,8 @@ Please note this app is a project assignment from Lighthouse Labs for The Web De
 ---
 ## Dependencies
 - Node.js
-- Express
-- EJS
+- express
+- ejs
 - bcrypt
 - cookie-session
 - method-override
