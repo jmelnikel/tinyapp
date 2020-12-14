@@ -1,6 +1,9 @@
 const express = require("express");
 const server = express();
-const PORT = 3000;
+let PORT = process.env.PORT;
+if (PORT == null || PORT == "") {
+  PORT = 3000;
+}
 const cookieSession = require("cookie-session");
 const router = require("./routes");
 const methodOverride = require('method-override');
@@ -28,5 +31,5 @@ server.get("*", (req, res) => {
 
 
 server.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}.`);
+  console.log(`Server is listening on PORT: ${PORT}.`)
 });
